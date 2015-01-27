@@ -11,6 +11,9 @@
             <tocitem text="Create Land Mask" target="CreateLandMask"/>
             <tocitem text="Wind Field Estimation" target="WindFieldEstimation"/>
         </tocitem>
+		<tocitem text="Lake Tools">
+            <tocitem text="Floating Vegetation Detection" target="FloatingVegetationDetection"></tocitem>
+        </tocitem>
     </tocitem>
 
 </toc>

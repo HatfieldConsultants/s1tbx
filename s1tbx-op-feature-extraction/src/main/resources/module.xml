@@ -238,6 +238,14 @@
             <parent>Sar Processing</parent>
             <placeAfter>SpeckleFiltering</placeAfter>
         </action>
+		
+		<action>
+            <id>lakeTools</id>
+            <class>org.esa.beam.visat.actions.ActionGroup</class>
+            <text>Lake Tools</text>
+            <parent>Sar Processing</parent>
+            <placeAfter>oceanTools</placeAfter>
+        </action>
 
         <action>
             <id>ObjectDetection</id>
@@ -264,6 +272,19 @@
             <graphFile>OilSpillDetectionGraph.xml</graphFile>
             <targetProductNameSuffix>_oil</targetProductNameSuffix>
             <placeAfter>ObjectDetection</placeAfter>
+        </action>
+		
+		<action>
+            <id>FloatingVegetationDetectionOp</id>
+            <helpId>FloatingVegetationDetection</helpId>
+            <class>org.esa.snap.dat.actions.GraphAction</class>
+            <icon>esaIcon</icon>
+            <parent>lakeTools</parent>
+            <text>Floating Vegetation Detection</text>
+            <shortDescr>Floating Vegetation Detection</shortDescr>
+            <dialogTitle>Floating Vegetation Detection</dialogTitle>
+            <graphFile>FloatingVegetationDetectionGraph.xml</graphFile>
+            <targetProductNameSuffix>_floating</targetProductNameSuffix>
         </action>
 
         <action>

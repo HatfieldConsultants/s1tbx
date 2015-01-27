@@ -10,5 +10,6 @@
     <mapID target="OilSpillDetection" url="operators/OilSpillDetectionOp.html"/>
     <mapID target="CreateLandMask" url="operators/CreateLandMask.html"/>
     <mapID target="WindFieldEstimation" url="operators/WindFieldEstimationOp.html"/>
-
+	<!--Lake Tools-->
+    <mapID target="FloatingVegetationDetection" url="operators/FloatingVegetationOp.html"/>
 </map>

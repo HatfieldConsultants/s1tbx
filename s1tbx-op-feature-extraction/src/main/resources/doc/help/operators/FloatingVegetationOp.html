@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+    <title>Help - Floating Vegetation Detection</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<table class="header">
+
+    <tbody>
+    <tr class="header">
+
+        <td class="header">&nbsp;Floating Vegetation Detection</td>
+
+
+        <td class="header" align="right"><a href="../general/Overview.html"><img src="../images/snap_header.jpg"
+                                                                                 border="0"></a></td>
+
+    </tr>
+
+    </tbody>
+</table>
+
+
+<h3>Floating Vegetation Detection</h3>&nbsp;&nbsp;&nbsp;The operator detects bright spot such as floating or emergent vegetation on water surface from SAR calibrated imagery.
+
+<h4>Major Processing Steps</h4>
+&nbsp;&nbsp;&nbsp;The floating vegetation detection operation consists of the following four operations:<br>
+<ol>
+    <li><span style="font-weight: bold;">Pre-processing:</span> Calibration and speckle filtering are applied to source image in this step.
+    </li>
+    <li><span style="font-weight: bold;">Land-sea masking:</span> Land-sea mask is created in this step to ensure that detection is focused only on area of interest, e.g., lake.
+    </li>
+    <li><span style="font-weight: bold;">Bright spot detection:</span> Bright spots are detected in this step with an adaptive thresholding method.
+    </li>
+    <li><span style="font-weight: bold;">Clustering and discrimination:</span>
+        Pixels detected as part of the bright spot are clustered and then eliminated based on the dimension of the cluster and user selected minimum cluster size.
+    </li>
+</ol>
+&nbsp;&nbsp;&nbsp;For details of calibration and speckle filtering operations, the readers are referred to the <a
+        href="./CalibrationOp.html">Calibration</a> operator and the <a href="SpeckleFilterOp.html">Speckle Filter</a>
+operator.
+&nbsp;Here it is assumed that the calibration and speckle filtering have
+been performed applying the Floating Vegetation Detection operator.
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;For details of land-sea mask generation, the readers are&nbsp;referred to the <a
+        href="CreateLandMask.html">Create Land Mask</a> operator.
+<br>
+<h4>Adaptive Threshold Algorithm</h4>&nbsp;&nbsp;&nbsp;The bright spots are detected using an adaptive thresholding method.<br>
+<ol>
+    <li><b>Local mean backscatter level</b> is estimated using pixels in a large window (user selected parameter for Background Window Size).
+    </li>
+    <li>Then&nbsp;<b>Detection of backscatter (dB) threshold</b> is set above the estimated local mean backscatter level. Pixels within the window with values higher than the threshold are detected as bright spot (user selected parameter).
+    </li>
+    <li>Window shifts across the defined lake area (mask) to next window position and repeats step 1 and 2.</li>
+</ol>
+
+<h4>Discrimination</h4>
+<ol>
+    <li>First the contiguous detected pixels are clustered into a single cluster.</li>
+    <li>Then clusters with their sizes smaller than user selected Minimum Cluster Size are eliminated.</li>
+</ol>
+<h4>Visualize Detected Floating Vegetation</h4>
+
+<p>The floating vegetation detection result is a bitmap that identifies high backscatter areas (that are possibly floating vegetation). The bitmap mask is output as a separated band. To view the floating vegetation detection results, the following steps should be followed:<br></p>
+<ol>
+    <li>Bring up the image.</li>
+    <li>Go to&nbsp;<a href="../visat/LayerManagerWindow.html">Layer Manager</a> and add the floating vegetation bitmap mask band as a layer.
+    </li>
+</ol>
+<h4>Parameters Used</h4>&nbsp;&nbsp;&nbsp;For bright spot detection, the following parameters are used (see Figure 1): 
+<ol>
+    <li><b>Source Bands:</b> All bands (real or virtual) of the source product. User can select one or more bands for producing multi-looked images. If no bands are selected, then by default all bands are selected. 
+    </li>
+    <li><b>Background Window Size:</b> The window size in pixels for computing local mean backscatter level.</li>
+    <li><b>Threshold Shift (dB):</b> The detecting threshold is higher than the local mean backscatter level by this amount.
+    </li>
+</ol>
+<img style="width: 600px; height: 500px;" alt="" src="images/floating_vegetation_detection_dlg.jpg">&nbsp;<br><br>&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;Figure 1. Floating Vegetation Detection Operator dialog box.
+<br><br><br>&nbsp;&nbsp;&nbsp;For clustering and discrimination, the following parameters are used (see Figure 2):<br>
+<ol>
+    <li>Minimum
+        Cluster Size: The minimum&nbsp;cluster size in square kilometer.
+        Cluster with size smaller than this size is eliminated.
+    </li>
+</ol>
+<img style="width: 600px; height: 500px;" alt="" src="images/floating_vegetation_clustering_dlg.jpg"><br><br>&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;Figure 2. Floating Vegetation Clustering operator dialog box.
+<br><br>
+
+<h4>Floating Vegetation Detection algorithm</h4>
+
+<p><a href="http://www.hatfieldgroup.com/">Hatfield Consultants</a> (http://www.hatfieldgroup.com/) modified the algorithm created for oil spill detection (Solberg, et al., 2004), that is available in ESA&apos;s open source software, the Sentinel-1 Toolbox. Hatfield incorporated the modified algorithm, a &quot;Floating Vegetation Detection&quot; (FVD) plugin to the Sentinel-1 Toolbox (v1.0.2) for detecting floating vegetation, e.g., possible water hyacinth using SAR calibrated data.</p>
+
+<p>The detection method is based on the Oil Spill Detection algorithm, which aims to detect relatively low backscatter features on a water surface that could be due to specular reflection and smoothing of the water surface due to oil. The new FVD algorithm detects relatively bright areas on the water surface that could be emergent / floating objects.</p>
+
+<br>
+<p style="font-style: italic;">Reference:</p>
+
+<p> [1] A. S. Solberg, C. Brekke and R. Solberg, "Algorithms
+    for oil spill detection in Radarsat and ENVISAT&nbsp;SAR images",
+    Geoscience and Remote Sensing Symposium, 2004. IGARSS '04. Proceedings.
+    2004 IEEE International,&nbsp;20-24 Sept. 2004, page 4909-4912, vol.7.</p>
+
+<hr>
+</body>
+</html>
